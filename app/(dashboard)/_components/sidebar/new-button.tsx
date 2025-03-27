@@ -8,15 +8,27 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import Hint from "@/components/hint";
 
 const NewButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="aspect-square">
-          <button className="flex h-full w-full items-center justify-center rounded-md bg-white/25 opacity-60 hover:opacity-100">
-            <Plus className="text-white" />
-          </button>
+        <div className="flex h-auto w-full flex-col items-stretch">
+          <Hint
+            label="Create organization"
+            side="right"
+            align="start"
+            sideOffset={18}
+          >
+            <div className="flex aspect-square h-full w-full items-center justify-center rounded-md bg-white/25 opacity-60 hover:opacity-100">
+              <Plus className="text-white" />
+            </div>
+            {/* Can't use the button tag here, because Hint component also has a button tag (default of Tooltip), it makes conflict (nested buttons) */}
+            {/* <button className="flex aspect-square h-full w-full items-center justify-center rounded-md bg-white/25 opacity-60 hover:opacity-100">
+              <Plus className="text-white" />
+            </butt> */}
+          </Hint>
         </div>
       </DialogTrigger>
       {/* Add "org-dialog" custom class */}
