@@ -27,6 +27,7 @@ export const ConvexClientProvider = ({
       <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
         {/* If user is not authenticated, ask to sign up */}
         <Unauthenticated>
+          {/* <SignUp /> */}
           <SignUpButton />
         </Unauthenticated>
         {/* When user completed signin, direct to dashboard */}
@@ -39,15 +40,3 @@ export const ConvexClientProvider = ({
     </ClerkProvider>
   );
 };
-
-// export const ConvexClientProvider = ({
-//   children,
-// }: ConvexClientProviderProps) => {
-//   return (
-//     <ClerkProvider>
-//       <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-//         {children}
-//       </ConvexProviderWithClerk>
-//     </ClerkProvider>
-//   );
-// };

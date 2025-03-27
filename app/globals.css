@@ -124,3 +124,8 @@ html, body, :root {
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom organization creation dialog */
+.org-dialog button.ring-offset-background {
+  display: none !important;
+}
