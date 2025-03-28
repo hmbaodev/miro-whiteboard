@@ -27,7 +27,7 @@ const NewButton = () => {
             {/* Can't use the button tag here, because Hint component also has a button tag (default of Tooltip), it makes conflict (nested buttons) */}
             {/* <button className="flex aspect-square h-full w-full items-center justify-center rounded-md bg-white/25 opacity-60 hover:opacity-100">
               <Plus className="text-white" />
-            </butt> */}
+            </button> */}
           </Hint>
         </div>
       </DialogTrigger>
