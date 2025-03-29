@@ -22,7 +22,7 @@ const Hint = ({
   sideOffset,
   alignOffset,
 }: HintProps) => {
-  console.log({ label, children, side, align, sideOffset, alignOffset });
+  // console.log({ label, children, side, align, sideOffset, alignOffset });
 
   return (
     <TooltipProvider>

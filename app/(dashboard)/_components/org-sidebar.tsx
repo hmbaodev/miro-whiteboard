@@ -68,7 +68,14 @@ const OrgSidebar = () => {
           size="lg"
           className="w-full justify-start px-2 font-normal"
         >
-          <Link href="/">
+          <Link
+            href={{
+              pathname: "/",
+              query: {
+                favorites: "true",
+              },
+            }}
+          >
             <Star className="mr-2 size-4" />
             Favorite Boards
           </Link>

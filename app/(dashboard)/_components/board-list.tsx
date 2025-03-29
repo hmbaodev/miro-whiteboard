@@ -11,12 +11,18 @@ interface BoardListProps {
 }
 
 const BoardList = ({ orgId, query }: BoardListProps) => {
-  const { search } = query;
-
   const data = []; // TODO: Change to API call
 
-  if (!data?.length && search) {
+  if (!data?.length && query.search) {
     return <div>Try searching for something else</div>;
+  }
+
+  if (!data?.length && query.favorites) {
+    return <div>No favorite</div>;
+  }
+
+  if (!data?.length) {
+    return <div>No board at all</div>;
   }
 
   return <div>BoardList</div>;

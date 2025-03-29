@@ -30,6 +30,7 @@ const Item = ({ id, name, imageUrl }: ItemProps) => {
           src={imageUrl}
           alt={name}
           fill
+          sizes="100%"
           onClick={onClick}
           className={cn(
             "cursor-pointer rounded-md opacity-75 transition hover:opacity-100",
