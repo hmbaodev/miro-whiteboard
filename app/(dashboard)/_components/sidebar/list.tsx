@@ -11,8 +11,6 @@ const List = () => {
     },
   });
 
-  console.log(userMemberships);
-
   if (!userMemberships.data?.length) return null;
 
   return (

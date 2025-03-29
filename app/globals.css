@@ -1,7 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-html, body, :root {
+html,
+body,
+:root {
   height: 100%;
 }
 
@@ -126,6 +128,11 @@ html, body, :root {
 }
 
 /* Custom organization creation dialog */
-.org-dialog button.ring-offset-background {
+.org-dialog, .invite-dialog {
+  @apply flex flex-col items-center border-none focus:border-none bg-transparent p-0 shadow-none;
+}
+
+.org-dialog button.ring-offset-background,
+.invite-dialog button.ring-offset-background {
   display: none !important;
 }
