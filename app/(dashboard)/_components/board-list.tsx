@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { EmptySearch } from "./empty-search";
 import EmptyFavorite from "./empty-favorites";
 import EmptyBoards from "./empty-boards";
@@ -17,15 +16,15 @@ const BoardList = ({ orgId, query }: BoardListProps) => {
   const data = []; // TODO: Change to API call
 
   if (!data?.length && query.search) {
-    return <EmptySearch /> 
+    return <EmptySearch />;
   }
 
   if (!data?.length && query.favorites) {
-    return <EmptyFavorite/> 
+    return <EmptyFavorite />;
   }
 
   if (!data?.length) {
-    return <EmptyBoards />
+    return <EmptyBoards />;
   }
 
   return <div>BoardList</div>;
