@@ -16,7 +16,6 @@ const EmptyOrg = () => {
   return (
     <div className="flex h-full flex-col items-center justify-center">
       <Image src="elements.svg" alt="Empty" width={200} height={200} />
-      <h2 className="mt-6 text-2xl font-semibold">Welcome to board</h2>
       <p className="text-muted-foreground mt-2 text-sm">
         Create an organization to get started
       </p>
