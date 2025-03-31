@@ -8,7 +8,6 @@ import EmptyFavorite from "./empty-favorites";
 import EmptyBoards from "./empty-boards";
 import BoardCard from "./board-card";
 import NewBoardButton from "./new-board-button";
-import { Skeleton } from "@/components/ui/skeleton";
 
 interface BoardListProps {
   orgId: string;
