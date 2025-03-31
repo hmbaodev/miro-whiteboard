@@ -1,4 +1,4 @@
-import { v } from "convex/values"
+import { v } from "convex/values";
 
 import { mutation } from "./_generated/server";
 
@@ -13,28 +13,65 @@ const images = [
   "/placeholders/8.svg",
   "/placeholders/9.svg",
   "/placeholders/10.svg",
-]
+];
 
 export const createBoard = mutation({
   args: {
     orgId: v.string(),
-    title: v.string()
+    title: v.string(),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) throw new Error("⚠️ Unauthorized! ⚠️");
 
-    const randomImage = images[Math.floor(Math.random() * images.length)]
+    const randomImage = images[Math.floor(Math.random() * images.length)];
 
     const board = await ctx.db.insert("boards", {
       title: args.title,
       orgId: args.orgId,
       authorId: identity.subject,
       authorName: identity.name!,
-      imageUrl: randomImage
-    })
+      imageUrl: randomImage,
+    });
 
     return board;
-  } 
-})
+  },
+});
+
+export const removeBoard = mutation({
+  args: { id: v.id("boards") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error("⚠️ Unauthorized! ⚠️");
+
+    // TODO: later check to delete favorite relation as well
+
+    await ctx.db.delete(args.id);
+  },
+});
+
+export const updateBoard = mutation({
+  args: { id: v.id("boards"), title: v.string() },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error("⚠️ Unauthorized! ⚠️");
+
+    const title = args.title.trim();
+
+    if (!title) throw new Error("❌ Title is required! ❌");
+
+    const TITLE_MAX_LENGTH = 60;
+    if (title.length > TITLE_MAX_LENGTH) {
+      throw new Error("❌ Title cannot be longer than 60 characters! ❌");
+    }
+
+    const board = ctx.db.patch(args.id, {
+      title: args.title,
+    });
+
+    return board;
+  },
+});

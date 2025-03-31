@@ -37,11 +37,13 @@ const BoardCard = ({
   const createdAtLabel = formatDistanceToNow(createdAt, { addSuffix: true });
 
   return (
-    <Link href={`/board/${id}`}>
+    <div>
       <div className="group flex aspect-[100/127] flex-col justify-between overflow-hidden rounded-lg border">
         <div className="relative flex-1 bg-amber-50">
-          <Image src={imageUrl} alt={title} className="object-fit" fill />
-          <Overlay />
+          <Link href={`/board/${id}`}>
+            <Image src={imageUrl} alt={title} className="object-fit" fill />
+            <Overlay />
+          </Link>
           <Actions id={id} title={title} side="right">
             <button className="absolute top-1 right-1 cursor-pointer px-3 py-2 opacity-0 transition-opacity outline-none group-hover:opacity-100">
               <MoreHorizontal className="text-white opacity-75 transition-opacity hover:opacity-100" />
@@ -53,11 +55,11 @@ const BoardCard = ({
           authorLabel={authorLabel}
           createdAtLabel={createdAtLabel}
           isFavorite={isFavorite}
-          onClick={() => {}}
+          onClick={() => alert("click no link")}
           disabled={false}
         />
       </div>
-    </Link>
+    </div>
   );
 };
 

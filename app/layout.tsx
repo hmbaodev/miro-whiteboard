@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ConvexClientProvider } from "@/providers/convex-client-provider";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import ModalProvider from "@/providers/modal-provider";
 
 export const metadata: Metadata = {
   title: "Moro Whiteboard",
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body>
         <ConvexClientProvider>
           <Toaster />
+          <ModalProvider />
           {children}
         </ConvexClientProvider>
       </body>

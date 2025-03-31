@@ -22,8 +22,6 @@ const Hint = ({
   sideOffset,
   alignOffset,
 }: HintProps) => {
-  // console.log({ label, children, side, align, sideOffset, alignOffset });
-
   return (
     <TooltipProvider>
       <Tooltip delayDuration={100}>

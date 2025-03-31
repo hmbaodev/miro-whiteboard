@@ -24,9 +24,8 @@ const EmptyBoards = () => {
         // TODO: Redirect to /board/{id}
         console.log(id);
       })
-      .catch((error) => {
-        toast.error("Fail to create board");
-        console.error(error)
+      .catch(() => {
+        toast.error("☹️ Fail to create board! ☹️");
       });
   };
 
