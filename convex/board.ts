@@ -46,7 +46,18 @@ export const removeBoard = mutation({
 
     if (!identity) throw new Error("⚠️ Unauthorized! ⚠️");
 
-    // TODO: later check to delete favorite relation as well
+    const userId = identity.subject;
+
+    const existingFavorite = await ctx.db
+      .query("userFavorites")
+      .withIndex("by_user_board", (q) =>
+        q.eq("userId", userId).eq("boardId", args.id),
+      )
+      .unique();
+
+    if (existingFavorite) {
+      await ctx.db.delete(existingFavorite._id);
+    }
 
     await ctx.db.delete(args.id);
   },
@@ -93,8 +104,8 @@ export const favoriteBoard = mutation({
 
     const existingFavorite = await ctx.db
       .query("userFavorites")
-      .withIndex("by_user_board_org", (q) =>
-        q.eq("userId", userId).eq("boardId", board._id).eq("orgId", args.orgId),
+      .withIndex("by_user_board", (q) =>
+        q.eq("userId", userId).eq("boardId", board._id),
       )
       .unique();
 
@@ -106,6 +117,38 @@ export const favoriteBoard = mutation({
       orgId: args.orgId,
     });
 
+    // ! No matter what's returned here because we don't use this value
+    return board;
+  },
+});
+
+export const unfavoriteBoard = mutation({
+  args: { id: v.id("boards") },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error("⚠️ Unauthorized! ⚠️");
+
+    const board = await ctx.db.get(args.id);
+
+    if (!board) {
+      throw new Error("❌ Board not found! ❌");
+    }
+
+    const userId = identity.subject;
+
+    const existingFavorite = await ctx.db
+      .query("userFavorites")
+      .withIndex("by_user_board", (q) =>
+        q.eq("userId", userId).eq("boardId", board._id),
+      )
+      .unique();
+
+    if (!existingFavorite) throw new Error("❌ Favorite board isn't exist! ❌");
+
+    await ctx.db.delete(existingFavorite._id);
+
+    // ! No matter what's returned here because we don't use this value
     return board;
   },
 });

@@ -2,6 +2,7 @@
 
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
+import { useRouter } from "next/router";
 
 import { api } from "@/convex/_generated/api";
 import { useApiMutation } from "@/hooks/use-api-mutation";
@@ -14,6 +15,7 @@ interface NewBoardButtonProps {
 
 const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
   const { mutate, pending } = useApiMutation(api.board.createBoard);
+  const router = useRouter();
 
   const onClick = () => {
     mutate({
@@ -22,8 +24,7 @@ const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
     })
       .then((id) => {
         toast.success("🎉 Board created! 🎉");
-        // TODO: Redirect to /board/{id}
-        console.log(id);
+        router.push(`/boards/${id}`);
       })
       .catch((error) => {
         toast.error("Fail to create board");
@@ -37,7 +38,8 @@ const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
       onClick={onClick}
       className={cn(
         "col-span-1 flex aspect-[100/127] cursor-pointer flex-col items-center justify-center rounded-lg bg-blue-600 py-6 hover:bg-blue-800",
-        (pending || disabled) && "opacity-75 hover:bg-blue-600 cursor-not-allowed"
+        (pending || disabled) &&
+          "cursor-not-allowed opacity-75 hover:bg-blue-600",
       )}
     >
       <div />

@@ -17,8 +17,8 @@ interface BoardListProps {
   };
 }
 
-const BoardList = ({ orgId, query }: BoardListProps) => {
-  const data = useQuery(api.boards.getBoards, { orgId });
+const BoardsList = ({ orgId, query }: BoardListProps) => {
+  const data = useQuery(api.boards.getBoards, { orgId, ...query });
   const skeletons = 5;
 
   /* 
@@ -72,7 +72,7 @@ const BoardList = ({ orgId, query }: BoardListProps) => {
             authorName={board.authorName}
             createdAt={board._creationTime}
             orgId={board.orgId}
-            isFavorite={true}
+            isFavorite={board.isFavorite}
           />
         ))}
       </div>
@@ -80,4 +80,4 @@ const BoardList = ({ orgId, query }: BoardListProps) => {
   );
 };
 
-export default BoardList;
+export default BoardsList;

@@ -14,7 +14,6 @@ const Navbar = () => {
   return (
     <div className="flex items-center gap-x-4 p-5">
       <div className="hidden lg:flex lg:flex-1">
-        {/* TODO: Add Searchbar */}
         <SearchInput />
       </div>
       <div className="block flex-1 lg:hidden">
