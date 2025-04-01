@@ -1,7 +1,7 @@
 "use client";
 
 import { ConvexProviderWithClerk } from "convex/react-clerk";
-import { ClerkProvider, SignUpButton, useAuth } from "@clerk/nextjs";
+import { ClerkProvider, RedirectToSignIn, SignUpButton, useAuth } from "@clerk/nextjs";
 import {
   Authenticated,
   AuthLoading,
@@ -10,6 +10,7 @@ import {
 } from "convex/react";
 
 import Loading from "@/components/auth/loading";
+import { RedirectStatusCode } from "next/dist/client/components/redirect-status-code";
 
 interface ConvexClientProviderProps {
   children: React.ReactNode;
@@ -27,8 +28,7 @@ export const ConvexClientProvider = ({
       <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
         {/* If user is not authenticated, ask to sign up */}
         <Unauthenticated>
-          {/* <SignUp /> */}
-          <SignUpButton />
+          <RedirectToSignIn />
         </Unauthenticated>
         {/* When user completed signin, direct to dashboard */}
         <Authenticated>{children}</Authenticated>

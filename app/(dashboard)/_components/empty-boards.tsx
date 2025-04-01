@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useOrganization } from "@clerk/nextjs";
 import { toast } from "sonner";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";

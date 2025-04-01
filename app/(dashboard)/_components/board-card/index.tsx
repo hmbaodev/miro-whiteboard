@@ -13,8 +13,6 @@ import Footer from "./footer";
 import Actions from "@/components/actions";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
-import { useMutation } from "convex/react";
-import { Id } from "@/convex/_generated/dataModel";
 
 interface BoardCardProps {
   id: string;
