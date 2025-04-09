@@ -4,6 +4,7 @@ import { useQuery } from "convex/react";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
 import Link from "next/link";
+import { Menu } from "lucide-react";
 
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
@@ -12,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import Hint from "@/components/hint";
 import { useRenameModal } from "@/store/use-modal-rename";
 import Actions from "@/components/actions";
-import { Menu } from "lucide-react";
 
 interface InfoProps {
   boardId: string;
@@ -52,7 +52,7 @@ const Info = ({ boardId }: InfoProps) => {
         </Button>
       </Hint>
       <TabSeparator />
-      <Hint label="Rename" side="bottom">
+      <Hint label="Rename" side="bottom" asChild={true}>
         <Button
           variant="board"
           className="cursor-pointer px-2 text-base font-normal"
@@ -69,7 +69,7 @@ const Info = ({ boardId }: InfoProps) => {
         sideOffset={10}
       >
         <div>
-          <Hint label="Main menu" side="bottom">
+          <Hint label="Main menu" side="bottom" asChild={true}>
             <Button variant="board" size="icon">
               <Menu />
             </Button>

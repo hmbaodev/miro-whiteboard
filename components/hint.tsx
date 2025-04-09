@@ -12,6 +12,7 @@ interface HintProps {
   align?: "start" | "center" | "end";
   sideOffset?: number;
   alignOffset?: number;
+  asChild?: boolean;
 }
 
 const Hint = ({
@@ -21,11 +22,12 @@ const Hint = ({
   align,
   sideOffset,
   alignOffset,
+  asChild
 }: HintProps) => {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={100}>
-        <TooltipTrigger>{children}</TooltipTrigger>
+        <TooltipTrigger asChild={asChild}>{children}</TooltipTrigger>
         <TooltipContent
           className="border-black bg-black text-white"
           side={side}

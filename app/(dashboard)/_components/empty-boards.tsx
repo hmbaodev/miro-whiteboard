@@ -9,7 +9,6 @@ import { useApiMutation } from "@/hooks/use-api-mutation";
 
 const EmptyBoards = () => {
   const { organization } = useOrganization();
-  // const createBoard = useMutation(api.board.createBoard);
   const { mutate, pending } = useApiMutation(api.board.createBoard);
   const router = useRouter();
 
