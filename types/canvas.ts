@@ -84,6 +84,11 @@ export enum Side {
   Right = 8,
 }
 
+export type Camera = {
+  x: number;
+  y: number;
+};
+
 export enum CanvasMode {
   None,
   Pressing,

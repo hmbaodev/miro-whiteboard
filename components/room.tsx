@@ -4,7 +4,7 @@ import {
   LiveblocksProvider,
   RoomProvider,
   ClientSideSuspense,
-} from "@liveblocks/react/suspense";
+} from "@liveblocks/react";
 
 interface RoomProps {
   children: React.ReactNode;
@@ -19,9 +19,14 @@ const Room = ({ children, roomId, fallback }: RoomProps) => {
       // Liveblocks doesn't recommend use publicApiKey for production.
       // publicApiKey={process.env.NEXT_PUBLIC_LIVEBLOCKS_API_KEY!}
       authEndpoint="/api/liveblocks-auth"
-      
+      throttle={16}
     >
-      <RoomProvider id={roomId} initialPresence={{}}>
+      <RoomProvider
+        id={roomId}
+        initialPresence={{
+          cursor: null,
+        }}
+      >
         <ClientSideSuspense fallback={fallback}>{children}</ClientSideSuspense>
       </RoomProvider>
     </LiveblocksProvider>

@@ -11,7 +11,7 @@ interface UserAvatarProps {
 
 const UserAvatar = ({ src, name, fallback, borderColor }: UserAvatarProps) => {
   return (
-    <Hint label={name || "Teammate"} side="bottom" sideOffset={18}>
+    <Hint label={name || "Teammate"} side="bottom">
       <Avatar className="size-8 border-2" style={{ borderColor }}>
         <AvatarImage src={src} />
         <AvatarFallback className="text-xs font-semibold">
