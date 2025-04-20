@@ -1,3 +1,4 @@
+import { colorToCss } from "@/lib/utils";
 import { RectangleLayer } from "@/types/canvas";
 
 interface RectangleProps {
@@ -15,7 +16,7 @@ const Rectangle = ({
 }: RectangleProps) => {
   const { x, y, width, height, fill } = layer;
 
-  console.log({id, layer})
+  // console.log({ id, layer });
 
   return (
     <rect
@@ -29,8 +30,8 @@ const Rectangle = ({
       width={width}
       height={height}
       strokeWidth={1}
-      fill="#c67914"
-      stroke="transparent"
+      fill={fill ? colorToCss(fill) : "#CCC"}
+      stroke={selectionColor || "transparent"}
     />
   );
 };

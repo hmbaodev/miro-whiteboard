@@ -11,10 +11,12 @@ interface CursorProps {
 }
 
 const Cursor = memo(({ connectionId }: CursorProps) => {
-  const info = useOther(connectionId, (user) => user?.info);
+  const info = useOther(connectionId, (user) => user.info);
   const cursor = useOther(connectionId, (other) => other.presence.cursor);
 
-  const name = info?.name || "Teammate";
+  const name = info.name || "Teammate";
+
+  console.log({ info, cursor }, "PARTNER_CURSOR");
 
   if (!cursor) return null;
 
