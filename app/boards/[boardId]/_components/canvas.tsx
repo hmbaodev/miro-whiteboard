@@ -19,6 +19,8 @@ import {
   Color,
   LayerType,
   Point,
+  Side,
+  XYWH,
 } from "@/types/canvas";
 import Info from "./info";
 import Participants from "./participants";
@@ -26,7 +28,11 @@ import Toolbar from "./toolbar";
 import CursorsPresence from "./cursors-presence";
 import LayerPreview from "./layer-preview";
 import SelectionBox from "./selection-box";
-import { connectionIdToColor, pointerEventToCanvasPoint } from "@/lib/utils";
+import {
+  connectionIdToColor,
+  pointerEventToCanvasPoint,
+  resizeBounds,
+} from "@/lib/utils";
 
 const MAX_LAYERS = 100;
 
@@ -58,6 +64,25 @@ const Canvas = ({ boardId }: CanvasProps) => {
   const history = useHistory();
   const canUndo = useCanUndo();
   const canRedo = useCanRedo();
+
+  /** RESIZING LAYER */
+  const resizeSelectedLayer = useMutation(
+    ({ storage, self }, point: Point) => {
+      if (canvasState.mode !== CanvasMode.Resizing) return;
+
+      const bounds = resizeBounds(
+        canvasState.initialBounds,
+        canvasState.corner,
+        point,
+      );
+
+      const liveLayers = storage.get("layers");
+      const layer = liveLayers.get(self.presence.selection[0]);
+
+      layer?.update(bounds);
+    },
+    [canvasState],
+  );
 
   /** INSERT LAYER */
   const insertLayer = useMutation(
@@ -95,15 +120,34 @@ const Canvas = ({ boardId }: CanvasProps) => {
     [lastUsedColor],
   );
 
+  /** RESIZING HANDLER */
+  const onResizeHandlePointerDown = useCallback(
+    (corner: Side, initialBounds: XYWH) => {
+      console.log({ corner, initialBounds });
+      history.pause();
+      setCanvasState({
+        mode: CanvasMode.Resizing,
+        initialBounds,
+        corner,
+      });
+    },
+    [history],
+  );
+
   /** POINTER MOVE HANDLER */
   const onPointerMove = useMutation(
     ({ setMyPresence }, ev: React.PointerEvent) => {
       ev.preventDefault();
 
       const current = pointerEventToCanvasPoint(ev, camera);
+
+      if (canvasState.mode === CanvasMode.Resizing) {
+        resizeSelectedLayer(current);
+      }
+
       setMyPresence({ cursor: current });
     },
-    [],
+    [canvasState, resizeSelectedLayer],
   );
 
   /** POINTER LEAVE HANDLER */
@@ -129,14 +173,14 @@ const Canvas = ({ boardId }: CanvasProps) => {
           canvasState.layerType === LayerType.Note
         ) {
           insertLayer(canvasState.layerType, point);
-        } else {
-          setCanvasState({ mode: CanvasMode.None });
         }
+      } else {
+        setCanvasState({ mode: CanvasMode.None });
       }
 
       history.resume();
     },
-    [camera, canvasState, history, insertLayer],
+    [camera, canvasState, history, insertLayer, setCanvasState],
   );
 
   /** LAYER POINTER DOWN HANDLER */
@@ -206,7 +250,7 @@ const Canvas = ({ boardId }: CanvasProps) => {
               selectionColor={layerIdsToColorSelection[layerId]}
             />
           ))}
-          <SelectionBox onResizeHandlePointerDown={() => {}} />
+          <SelectionBox onResizeHandlePointerDown={onResizeHandlePointerDown} />
           <CursorsPresence />
         </g>
       </svg>

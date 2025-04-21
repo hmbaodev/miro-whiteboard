@@ -10,6 +10,7 @@ const liveblocks = new Liveblocks({
   secret: process.env.LIVEBLOCKS_SECRET_KEY!,
 });
 
+// Permit access to the room only if the current user has the same orgId as the current board
 export async function POST(request: Request) {
   const authorization = await auth();
   const user = await currentUser();
