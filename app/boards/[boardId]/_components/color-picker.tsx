@@ -23,6 +23,8 @@ const ColorPicker = ({ onChange }: ColorPickerProps) => {
       <ColorButton color={{ r: 75, g: 192, b: 192 }} onClick={onChange} />
       <ColorButton color={{ r: 255, g: 206, b: 86 }} onClick={onChange} />
       <ColorButton color={{ r: 153, g: 102, b: 255 }} onClick={onChange} />
+      <ColorButton color={{ r: 201, g: 203, b: 207 }} onClick={onChange} />
+      <ColorButton color={{ r: 255, g: 159, b: 64 }} onClick={onChange} />
     </div>
   );
 };
